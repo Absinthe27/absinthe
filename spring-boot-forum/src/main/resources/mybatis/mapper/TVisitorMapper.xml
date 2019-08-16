@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xude.persistence.dao.TVisitorMapper">
+
+  <resultMap id="BaseResultMap" type="com.xude.persistence.model.TVisitor">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <association column="user_id" javaType="com.xude.persistence.model.User" property="user">
+      <id column="user_id" property="id" />
+      <result column="user_username" property="username" />
+      <result column="user_avatar_location" property="avatarLocation" />
+    </association>
+    <association column="post_id" javaType="com.xude.persistence.model.Post" property="post">
+      <id column="post_id" property="id" />
+      <result column="post_title" property="title" />
+      <result column="post_body" property="body" />
+      <result column="post_date_created" property="dateCreated" />
+      <result column="post_comment_count" property="commentCount" />
+      <result column="post_hit_count" property="hitCount" />
+    </association>
+  </resultMap>
+  <insert id="insert" parameterType="com.xude.persistence.model.TVisitor">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_visitor (user_id, post_id, num
+      )
+    values (#{user.id,jdbcType=BIGINT}, #{post.id,jdbcType=BIGINT}, #{num,jdbcType=INTEGER}
+      )
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, user_id, post_id, num
+    from t_visitor
+  </select>
+
+
+  <select id="findVisitor" resultMap="BaseResultMap">
+        select id, user_id, post_id, num
+          from t_visitor
+        WHERE post_id = #{post.id}
+        and user_id =#{user.id}
+
+    </select>
+
+  <update id="updateNum" parameterType="com.xude.persistence.model.TVisitor">
+        UPDATE t_visitor SET
+	        num = #{num}
+        WHERE id = #{id}
+    </update>
+</mapper>

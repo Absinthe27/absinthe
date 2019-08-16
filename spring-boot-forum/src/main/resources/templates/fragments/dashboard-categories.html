@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:if="${activeTab == 'categories'}" id="dashboardCategories" th:fragment="categories">
+
+        <h2>新增</h2>
+        <form th:action="@{/category/saveCategory}" th:object="${category}" method="POST">
+            <label >分类名:</label>
+            <input type="text"  id = "name"  name = "name" value="" /><br/>
+            <label >显示名:</label>
+            <input type="text"  id = "displayName"  name = "name" value="" /><br/>
+            <input type="submit" value="提交"/>
+        </form>
+
+        <div class="container-fluid">
+
+            <div th:if="${categories.size()==0}" class="centered"><h2>所选日期内没有内容</h2></div>
+
+            <ul class="list-group list-custom-corner">
+                <li class="profile-list list-group-item side-borderless last-border" th:each="category:${categories}">
+                    <div class="media">
+                        <div class="media-body">
+                            <div class="media-heading">
+                                <a class="category-title"  th:text="${category.name}">title</a>
+                            </div>
+                            <span class="categoryt-date" th:text="${'发布时间：' + category.dateFormat()}"></span>
+                        </div>
+                        <div class="media-right media-middle">
+                            <button type="button" class="btn btn-primary categoryButton" data-toggle="modal" th:attr="data-category-id=${category.id}">编辑</button>
+                        </div>
+
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

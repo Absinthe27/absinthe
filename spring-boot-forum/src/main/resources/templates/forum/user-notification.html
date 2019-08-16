@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/custom.css">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/messge.js"></script>
+</head>
+
+<body>
+<div class="panel panel-default panel-bg">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div th:if="${natifNum} eq 'null'" class="left"><h2>近期没有新的回复</h2></div>
+
+                            <div th:if="${natifNum} ne 'null'" class="left"><h2 th:text="${'新的评论数: '+posts.size()}"></h2> </div>
+                            <ul class="list-group list-custom-corner">
+                                <li class="profile-list list-group-item side-borderless last-border" th:each="post:${posts}">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <div class="media-heading">
+                                                <a class="post-title" th:href="@{/post/{postId}(postId=${post.id})}" th:text="${post.title}">title</a>
+                                            </div>
+                                            <a class="post-tag"
+                                               th:href="@{/category/{category Name}(categoryName=${post.category.name})}"
+                                               th:text="${post.category.displayName}"></a>
+                                            <span class="post-date" th:text="${'发布时间：' + post.dateFormat()}"></span>
+                                        </div>
+<!--                                        <div class="media-right media-middle">-->
+<!--                                            <button type="button" class="btn btn-primary editButtonPost" data-toggle="modal" th:attr="data-post-id=${post.id}">编辑</button>-->
+<!--                                        </div>-->
+<!--                                        <div class="media-right media-middle">-->
+
+<!--                                            <button th:if=" ${post.stick} eq null" type="button" class="btn btn-primary postStick" data-toggle="modal" th:attr="data-post-id=${post.id}">置顶</button>-->
+<!--                                            <button th:if=" ${post.stick} ne null" type="button" class="btn btn-danger postStick" data-toggle="modal" th:attr="data-post-id=${post.id}">取消置顶</button>-->
+<!--                                        </div>-->
+<!--                                        <div class="media-right media-middle">-->
+<!--                                            <button type="button" class="btn btn-danger deleteButton" data-toggle="modal"-->
+<!--                                                    th:attr="data-post-id=${post.id},-->
+<!--                                                    data-post-title=${post.title},-->
+<!--                                                    data-post-username=${post.user.username},-->
+<!--                                                    data-post-date=${post.dateCreated}">删除</button>-->
+<!--                                        </div>-->
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">还没想好写啥</div>
+                    <div class="panel-body">先这样吧</div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div id="divhead" class="panel-heading"></div>
+                    <div id="divbody" class="panel-body"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

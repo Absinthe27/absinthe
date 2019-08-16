@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/custom/custom.css">
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/messge.js"></script>
+</head>
+<body>
+
+
+<div class="panel panel-default panel-bg">
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="container-fluid">
+
+                            <div class="container-fluid">
+<!--                                <div class="row form-group">-->
+<!--&lt;!&ndash;                                    <h3 th:text="${user.username}"></h3>&ndash;&gt;-->
+<!--                                    上墙呦-->
+<!--                                </div>-->
+
+                                <div align="center" class="container-fluid">
+                                    <h2>新增</h2>
+                                    <form th:action="@{/message/add}" th:object="${TMessage}" method="POST">
+                                        <label >head:</label>
+                                        <input type="text"  id = "head"  name = "head" value="" /><br/>
+                                        <label >body:</label>
+                                        <input type="text"  id = "body"  name = "body" value="" /><br/>
+                                        <input type="submit" value="提交"/>
+                                    </form>
+                                </div>
+
+                                <div  sec:authorize="hasAuthority('ADMIN')" class="panel panel-body" >
+                                    <ul class="list-group list-custom-corner">
+                                        <li class="profile-list list-group-item side-borderless last-border" th:each="TMessage:${messges}">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <div  class="media-heading">
+                                                        <input  th:id="${'head'+TMessage.id}"  th:type="text" th:value="${TMessage.head}">
+                                                    </div>
+                                                    <div class="media-heading">
+                                                        <input th:id="${'body'+TMessage.id}"  th:type="text" th:value="${TMessage.body}">
+                                                    </div>
+
+                                                </div>
+                                                <div class="media-right media-middle">
+                                                    <button type="button" class="btn btn-primary messageEdit" data-toggle="modal"
+                                                            th:attr="data-message-id=${TMessage.id}">编辑</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div  sec:authorize ="hasAuthority('USER')"  class="panel panel-body" >
+                                    <ul class="list-group list-custom-corner">
+                                        <li class="profile-list list-group-item side-borderless last-border" th:each="TMessage:${messges}">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <div  class="media-heading">
+                                                        <a class="post-title"  th:text="${TMessage.head}">head</a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <a class="post-title"  th:text="${TMessage.body}">body</a>
+                                                    </div>
+                                                </div>
+                                                <div class="media-right media-middle">
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal">点个赞</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-4">
+
+<!--                <div class="panel panel-default">-->
+<!--                    <div class="panel-heading">-->
+<!--                        消息1</div>-->
+<!--                    <div class="panel-body">-->
+<!--                        消息内容1</div>-->
+<!--                </div>-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">There's a girl but I let her get away</div>
+                    <div class="panel-body">It's all my fault cause pride got in the way</div>
+                </div>
+
+                <div class="panel panel-default">
+                <div class="panel-heading"> Now I know you gotta</div>
+                <div class="panel-body">Speak up if you want somebody</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+   <footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: head">
+    <script src="/js/messge.js"></script>
+</head>
+<body>
+
+<div class="panel panel-default panel-bg">
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="container-fluid">
+							<table class="table">
+								<thead>
+									<th>游戏列表</th>
+								</thead>
+								<tbody>
+								<tr class="guessClour">
+									<td><a href="../game/guessClour.html">猜颜色</a></td>
+								</tr>
+								<tr class="success">
+									<td><a href="../game/fruit.html">水果忍者</a></td>
+								</tr>
+								<tr class="warning">
+									<td><a href="../game/tantan.html">打砖块</a></td>
+								</tr>
+								<tr class="danger">
+									<td><a href="../game/pingtu.html">未成年不要点</a></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+
+				<div class="panel panel-default">
+					<div class="panel-heading">还没想好写啥</div>
+					<div class="panel-body">先这样吧</div>
+				</div>
+
+				<div class="panel panel-default">
+					<div id="divhead" class="panel-heading"></div>
+					<div id="divbody" class="panel-body"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
